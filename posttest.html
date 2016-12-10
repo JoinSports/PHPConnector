@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<!--
+This html page can be used as test to use the webservice without the app to test the input and output
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>
+            <h1>Login User Test</h1>
+            <form action="login_user.php" method="post">
+                <!-- {"authusername":"domsseinss","authpassword":"1a836f81f74bd42806dfd9599e64cf8b3d214f26320b20c5970a815e0bbed4b49ab446576b0457c89cbf14eb912e9fd44d47c3953b3a6b6fe40d8748a86dd683"} -->
+                <input style="width: 100%" type="text" name="json" maxlength="999">
+                <button type="submit">Eingaben absenden</button>
+            </form>
+        </div>
+        <br>
+        <div>
+            <h1>Create User Test</h1>
+            <form action="create_user.php" method="post">
+                <!-- {"username":"domssejinss","password":"1a836f81f74bd42806dfd9599e64cf8b3d214f26320b20c5970a815e0bbed4b49ab446576b0457c89cbf14eb912e9fd44d47c3953b3a6b6fe40d8748a86dd683","firstname":"Babo","lastname":"Shit","emailaddress":"derda@blub.de","authusername":"","authpassword":""} -->
+                <input style="width: 100%" type="text" name="json" maxlength="999">
+                <button type="submit">Eingaben absenden</button>
+            </form>
+        </div>
+        <br>
+        <div>
+            <h1>Read User Test</h1>
+            <form action="read_user.php" method="post">
+                <!-- {"username":"domssejinss","authusername":"domssejinss","authpassword":"1a836f81f74bd42806dfd9599e64cf8b3d214f26320b20c5970a815e0bbed4b49ab446576b0457c89cbf14eb912e9fd44d47c3953b3a6b6fe40d8748a86dd683"} -->
+                <input style="width: 100%" type="text" name="json" maxlength="999">
+                <button type="submit">Eingaben absenden</button>
+            </form>
+        </div>
+        <br>
+        <div>
+            <h1>Update User Test</h1>
+            <form action="update_user.php" method="post">
+                <!-- {"username":"domssejinss","password":"1a836f81f74bd42806dfd9599e64cf8b3d214f26320b20c5970a815e0bbed4b49ab446576b0457c89cbf14eb912e9fd44d47c3953b3a6b6fe40d8748a86dd683","firstname":"Babo","lastname":"Shit","emailaddress":"derda@blub.de","authusername":"","authpassword":""} -->
+                <input style="width: 100%" type="text" name="json" maxlength="999">
+                <button type="submit">Eingaben absenden</button>
+            </form>
+        </div>
+        <br>
+        <div>
+            <h1>Delete User Test</h1>
+            <form action="delete_user.php" method="post">
+                <!-- {"username":"domssejinss","authusername":"domssejinss","authpassword":"1a836f81f74bd42806dfd9599e64cf8b3d214f26320b20c5970a815e0bbed4b49ab446576b0457c89cbf14eb912e9fd44d47c3953b3a6b6fe40d8748a86dd683"} -->
+                <input style="width: 100%" type="text" name="json" maxlength="999">
+                <button type="submit">Eingaben absenden</button>
+            </form>
+        </div>
+        <hr>
+        <br>
+        <div>
+            <h1>Create Team</h1>
+            <form action="create_team.php" method="post">
+                <!-- {"username":"domssejinss","teamname":"hallo"} -->
+                <input style="width: 100%" type="text" name="json" maxlength="999">
+                <button type="submit">Eingaben absenden</button>
+            </form>
+        </div>
+        <br>
+        <div>
+            <h1>Delete Team</h1>
+            <form action="delete_team.php" method="post">
+                <!-- {"username":"domssejinss","authusername":"domssejinss","authpassword":"1a836f81f74bd42806dfd9599e64cf8b3d214f26320b20c5970a815e0bbed4b49ab446576b0457c89cbf14eb912e9fd44d47c3953b3a6b6fe40d8748a86dd683"} -->
+                <input style="width: 100%" type="text" name="json" maxlength="999">
+                <button type="submit">Eingaben absenden</button>
+            </form>
+        </div>
+    </body>
+</html>
