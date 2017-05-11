@@ -1,5 +1,5 @@
 <?php
-// hole die configuration der DB
+
 require_once 'config/cfg.php';
 include_once 'classes/authuser.class.php';
 include_once 'classes/checkinput.class.php';
@@ -14,7 +14,7 @@ $firstname = $json_decoded->firstname;
 $lastname = $json_decoded->lastname;
 $email = $json_decoded->emailaddress;
 if (Inputcheck::username($username) && Inputcheck::passwordhash($passwordhash) && Inputcheck::name($firstname) && Inputcheck::name($lastname) && Inputcheck::email($email)) {
-// connect to db
+    // connect to db
     $mysqli = new mysqli(HOST, USER, PASS, DB);
     if ($mysqli->connect_errno) {
         //echo "Failed to connect to MySQL: " . $mysqli->connect_error;
@@ -23,17 +23,17 @@ if (Inputcheck::username($username) && Inputcheck::passwordhash($passwordhash) &
         $json['data'] = "";
     } else {
 
-// execute sql query
-    $sql = "UPDATE user SET passwordhash='$passwordhash', firstname='$firstname', lastname='$lastname', email='$email' WHERE user.username='$username';";
-    $mysqli->query($sql);
+        // execute sql query
+        $sql = "INSERT INTO user VALUES (NULL, '$username', '$passwordhash', '$firstname', '$lastname', '$email');";
+        $mysqli->query($sql);
 
         // build output dataset.
         if (!$mysqli->error) {
             $json['status'] = "success";
-            $json['message'] = "Nutzer erfolgreich geupdatet.";
+            $json['message'] = "Nutzer erfolgreich erstellt.";
         } else {
             $json['status'] = "error";
-            $json['message'] = "Der Nutzer konnte nicht geupdated werden.";
+            $json['message'] = "Der Nutzername ist bereits vergeben.";
         }
         $json['data'] = "";
     }
@@ -43,5 +43,6 @@ if (Inputcheck::username($username) && Inputcheck::passwordhash($passwordhash) &
     $json['data'] = "";
 }
 
-// echo JSON this is used by the app
+// return JSON this is used by the app
 echo json_encode($json);
+?>

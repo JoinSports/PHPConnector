@@ -2,8 +2,8 @@
 
 // hole die configuration der DB
 require_once 'config/cfg.php';
-include_once 'authuser.class.php';
-include_once 'checkinput.class.php';
+include_once 'classes/authuser.class.php';
+include_once 'classes/checkinput.class.php';
 
 // connect to db
 
@@ -17,7 +17,7 @@ $authpasswordhash = $json_decoded->authpassword;
 if (Inputcheck::username($authusername) && Inputcheck::passwordhash($authpasswordhash)) {
     $mysqli = new mysqli(HOST, USER, PASS, DB);
     if ($mysqli->connect_errno) {
-        //echo "Failed to connect to MySQL: " . $mysqli->connect_error;
+        echo "Failed to connect to MySQL: " . $mysqli->connect_error;
         $json['status'] = "error";
         $json['message'] = "Fehler 404";
         $json['data'] = "";

@@ -2,8 +2,8 @@
 
 // hole die configuration der DB
 require_once 'config/cfg.php';
-include_once 'authuser.class.php';
-include_once 'checkinput.class.php';
+include_once 'classes/authuser.class.php';
+include_once 'classes/checkinput.class.php';
 
 $json_string = $_POST['json'];
 $json_decoded = json_decode($json_string);
