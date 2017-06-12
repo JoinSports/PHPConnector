@@ -19,15 +19,16 @@ class Inputcheck{
             return true;
         }
     }
+    /* reduce later for valid hash*/
     static public function passwordhash($string) {
-        if(preg_match("/^[a-fA-F0-9]{5,130}$/", $string) === 0) {
+        if(preg_match("/^[a-zA-Z0-9]{2,130}$/", $string) === 0) {
             return false;
         } else {
             return true;
         }
     }
     static public function username($string) {
-        if(preg_match("/^[a-zA-Z0-9]{3,50}$/", $string) === 0) {
+        if(preg_match("/^[a-zA-Z0-9]{2,50}$/", $string) === 0) {
             return false;
         } else {
             return true;

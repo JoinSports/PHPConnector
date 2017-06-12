@@ -11,7 +11,7 @@ This html page can be used as test to use the webservice without the app to test
     <body>
         <div>
             <h1>Login User Test</h1>
-            <form action="login_user.php" method="post">
+            <form action="NormalUser_checkCredentials.php" method="post">
                 <!-- {"authusername":"domsseinss","authpassword":"1a836f81f74bd42806dfd9599e64cf8b3d214f26320b20c5970a815e0bbed4b49ab446576b0457c89cbf14eb912e9fd44d47c3953b3a6b6fe40d8748a86dd683"} -->
                 <input style="width: 100%" type="text" name="json" maxlength="999">
                 <button type="submit">Eingaben absenden</button>
@@ -20,7 +20,7 @@ This html page can be used as test to use the webservice without the app to test
         <br>
         <div>
             <h1>Create User Test</h1>
-            <form action="create_user.php" method="post">
+            <form action="NormalUser_create.php" method="post">
                 <!-- {"username":"domssejinss","password":"1a836f81f74bd42806dfd9599e64cf8b3d214f26320b20c5970a815e0bbed4b49ab446576b0457c89cbf14eb912e9fd44d47c3953b3a6b6fe40d8748a86dd683","firstname":"Babo","lastname":"Shit","emailaddress":"derda@blub.de","authusername":"","authpassword":""} -->
                 <input style="width: 100%" type="text" name="json" maxlength="999">
                 <button type="submit">Eingaben absenden</button>
@@ -28,8 +28,8 @@ This html page can be used as test to use the webservice without the app to test
         </div>
         <br>
         <div>
-            <h1>Read User Test</h1>
-            <form action="read_user.php" method="post">
+            <h1>Read User Test by Username</h1>
+            <form action="NormalUser_retrieveByUsername.php" method="post">
                 <!-- {"username":"domssejinss","authusername":"domssejinss","authpassword":"1a836f81f74bd42806dfd9599e64cf8b3d214f26320b20c5970a815e0bbed4b49ab446576b0457c89cbf14eb912e9fd44d47c3953b3a6b6fe40d8748a86dd683"} -->
                 <input style="width: 100%" type="text" name="json" maxlength="999">
                 <button type="submit">Eingaben absenden</button>
@@ -38,7 +38,7 @@ This html page can be used as test to use the webservice without the app to test
         <br>
         <div>
             <h1>Update User Test</h1>
-            <form action="update_user.php" method="post">
+            <form action="NormalUser_update.php" method="post">
                 <!-- {"username":"domssejinss","password":"1a836f81f74bd42806dfd9599e64cf8b3d214f26320b20c5970a815e0bbed4b49ab446576b0457c89cbf14eb912e9fd44d47c3953b3a6b6fe40d8748a86dd683","firstname":"Babo","lastname":"Shit","emailaddress":"derda@blub.de","authusername":"","authpassword":""} -->
                 <input style="width: 100%" type="text" name="json" maxlength="999">
                 <button type="submit">Eingaben absenden</button>
@@ -47,7 +47,7 @@ This html page can be used as test to use the webservice without the app to test
         <br>
         <div>
             <h1>Delete User Test</h1>
-            <form action="delete_user.php" method="post">
+            <form action="NormalUser_delete.php" method="post">
                 <!-- {"username":"domssejinss","authusername":"domssejinss","authpassword":"1a836f81f74bd42806dfd9599e64cf8b3d214f26320b20c5970a815e0bbed4b49ab446576b0457c89cbf14eb912e9fd44d47c3953b3a6b6fe40d8748a86dd683"} -->
                 <input style="width: 100%" type="text" name="json" maxlength="999">
                 <button type="submit">Eingaben absenden</button>
@@ -57,7 +57,7 @@ This html page can be used as test to use the webservice without the app to test
         <br>
         <div>
             <h1>Create Team</h1>
-            <form action="create_team.php" method="post">
+            <form action="Team_create.php" method="post">
                 <!-- {"username":"domssejinss","teamname":"hallo"} -->
                 <input style="width: 100%" type="text" name="json" maxlength="999">
                 <button type="submit">Eingaben absenden</button>
@@ -66,8 +66,17 @@ This html page can be used as test to use the webservice without the app to test
         <br>
         <div>
             <h1>Delete Team</h1>
-            <form action="delete_team.php" method="post">
+            <form action="Team_deleteById.php" method="post">
                 <!-- {"username":"domssejinss","authusername":"domssejinss","authpassword":"1a836f81f74bd42806dfd9599e64cf8b3d214f26320b20c5970a815e0bbed4b49ab446576b0457c89cbf14eb912e9fd44d47c3953b3a6b6fe40d8748a86dd683"} -->
+                <input style="width: 100%" type="text" name="json" maxlength="999">
+                <button type="submit">Eingaben absenden</button>
+            </form>
+        </div>
+        <br>
+        <div>
+            <h1>Join Team (not implemented)</h1>
+            <form action="join_team.php" method="post">
+                <!-- {"username":"domssejinss","teamname":"domssejinss" -->
                 <input style="width: 100%" type="text" name="json" maxlength="999">
                 <button type="submit">Eingaben absenden</button>
             </form>
