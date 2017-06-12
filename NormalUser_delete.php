@@ -9,16 +9,11 @@ $json_decoded = json_decode($json_string);
 
 //input params
 $userid = $json_decoded->id;
-$username = $json_decoded->username;
-$passwordhash = $json_decoded->password;
-$authusername = $json_decoded->authusername;
-$authpasswordhash = $json_decoded->authpassword;
-$firstname = $json_decoded->firstname;
-$lastname = $json_decoded->lastname;
-$email = $json_decoded->emailaddress;
+$username = $json_decoded->authusername;
+$passwordhash = $json_decoded->authpassword;
 
 $json = array();
-if (Inputcheck::digit($userid) && Inputcheck::username($username) && Inputcheck::passwordhash($passwordhash) && Inputcheck::username($authusername) && Inputcheck::passwordhash($authpasswordhash) && Inputcheck::name($firstname) && Inputcheck::name($lastname) && Inputcheck::email($email)) {
+if (Inputcheck::digit($userid) && Inputcheck::username($username) && Inputcheck::passwordhash($passwordhash)) {
     // connect to db
     $mysqli = new mysqli(HOST, USER, PASS, DB);
     if ($mysqli->connect_errno) {
@@ -27,9 +22,9 @@ if (Inputcheck::digit($userid) && Inputcheck::username($username) && Inputcheck:
         $json['message'] = "Fehler 404";
         $json['data'] = "";
     } else {
-        if (AuthUser::authme($authusername, $authpasswordhash)) {
+        if (AuthUser::authme($username, $passwordhash)) {
             // execute sql query
-            $sql = "UPDATE users SET `username` = '$username', `passwordhash` = '$passwordhash', `firstname` = '$firstname', `lastname` = '$lastname', `email` = '$email' WHERE `userid` = '$userid';";
+            $sql = "DELETE FROM users WHERE userid = '$userid'";
             $mysqli->query($sql);
 
             // build output dataset.
@@ -38,12 +33,12 @@ if (Inputcheck::digit($userid) && Inputcheck::username($username) && Inputcheck:
                 $json['message'] = "Nutzer erfolgreich erstellt.";
             } else {
                 $json['status'] = "error";
-                $json['message'] = "Fehler beim Update.";
+                $json['message'] = "Fehler beim Entfernen.";
             }
             $json['data'] = "";
         } else {
             $json['status'] = "error";
-            $json['message'] = "Fehler beim Update.";
+            $json['message'] = "Fehler beim Entfernen.";
         }
     }
 } else {

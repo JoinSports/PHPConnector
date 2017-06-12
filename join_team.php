@@ -1,4 +1,5 @@
 <?php
+
 // hole die configuration der DB
 require_once 'config/cfg.php';
 include_once 'classes/authuser.class.php';
@@ -8,12 +9,9 @@ $json_string = $_POST['json'];
 $json_decoded = json_decode($json_string);
 
 //input params
-$username = $json_decoded->username;
-$passwordhash = $json_decoded->password;
-$firstname = $json_decoded->firstname;
-$lastname = $json_decoded->lastname;
-$email = $json_decoded->emailaddress;
-if (Inputcheck::username($username) && Inputcheck::passwordhash($passwordhash) && Inputcheck::name($firstname) && Inputcheck::name($lastname) && Inputcheck::email($email)) {
+$username = $json_decoded->username; // string
+$teamname = $json_decoded->teamname;
+if (Inputcheck::username($username) && Inputcheck::name($teamname)) {
 // connect to db
     $mysqli = new mysqli(HOST, USER, PASS, DB);
     if ($mysqli->connect_errno) {
@@ -24,16 +22,26 @@ if (Inputcheck::username($username) && Inputcheck::passwordhash($passwordhash) &
     } else {
 
 // execute sql query
-    $sql = "UPDATE user SET passwordhash='$passwordhash', firstname='$firstname', lastname='$lastname', email='$email' WHERE user.username='$username';";
-    $mysqli->query($sql);
+        $sql = "SELECT users.userid FROM users WHERE users.username='$username';";
+        $result = $mysqli->query($sql);
+        $row = $result->fetch_assoc();
+        $userid = $row['userid'];
+        
+        $sql = "SELECT team.id FROM team WHERE team.teamname='$teamname';";
+        $result = $mysqli->query($sql);
+        $row = $result->fetch_assoc();
+        $teamid = $row['id'];
+        
+        $sql = "INSERT INTO teamuserc VALUES ('$teamid', '$userid');";
+        $mysqli->query($sql);
 
         // build output dataset.
         if (!$mysqli->error) {
             $json['status'] = "success";
-            $json['message'] = "Nutzer erfolgreich geupdatet.";
+            $json['message'] = "Team erfolgreich beigetreten.";
         } else {
             $json['status'] = "error";
-            $json['message'] = "Der Nutzer konnte nicht geupdated werden.";
+            $json['message'] = "Dem Team konnte nicht beigetreten werden.";
         }
         $json['data'] = "";
     }
@@ -42,6 +50,8 @@ if (Inputcheck::username($username) && Inputcheck::passwordhash($passwordhash) &
     $json['message'] = "Input konnte nicht validiert werden.";
     $json['data'] = "";
 }
-
+$json['errorUserMsg'] = "";
+$json['errorLogMsg'] = "";
 // echo JSON this is used by the app
 echo json_encode($json);
+?>

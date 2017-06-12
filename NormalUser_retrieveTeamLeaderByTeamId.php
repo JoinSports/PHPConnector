@@ -12,9 +12,13 @@ $json_string = $_POST['json'];
 $json_decoded = json_decode($json_string);
 
 //input params
+$teamid = $json_decoded->teamId;
 $authusername = $json_decoded->authusername;
 $authpasswordhash = $json_decoded->authpassword;
-if (Inputcheck::username($authusername) && Inputcheck::passwordhash($authpasswordhash)) {
+
+$json = array();
+
+if (Inputcheck::username($authusername) && Inputcheck::passwordhash($authpasswordhash) && Inputcheck::digit($teamid)) {
     $mysqli = new mysqli(HOST, USER, PASS, DB);
     if ($mysqli->connect_errno) {
         echo "Failed to connect to MySQL: " . $mysqli->connect_error;
@@ -22,26 +26,27 @@ if (Inputcheck::username($authusername) && Inputcheck::passwordhash($authpasswor
         $json['message'] = "Fehler 404";
         $json['data'] = "";
     } else {
-        if (AuthUser::authme($authusername, $authpasswordhash)) {
-            // wenn auth true liefert
-            // execute sql query da auth gueltig war
 
-            $json['status'] = "success";
-            $json['message'] = "Erfolgreich angemeldet.";
-            $json['data'] = "";
-        } else {
-            // wenn auth false ist
-            $json['status'] = "error";
-            $json['message'] = "Benutzername oder Password falsch.";
-            $json['data'] = "";
-        }
+        $sql = "Select users.userid,username,firstname,lastname,email from users,teamleaderc where teamleaderc.teamid='$teamid' and teamleaderc.userid = users.userid";
+        $result = $mysqli->query($sql);
+        $row = mysqli_fetch_assoc($result);
+
+        $json['username'] = $row['username'];
+        $json['id'] = $row['userid'];
+        $json['firstname'] = $row['firstname'];
+        $json['lastname'] = $row['lastname'];
+        $json['email'] = $row['email'];
+        $json['password'] = "";
+        $json['status'] = "success";
+        $json['message'] = "";
     }
 } else {
     $json['status'] = "error";
     $json['message'] = "Input konnte nicht validiert werden.";
     $json['data'] = "";
 }
-
+$json['errorUserMsg'] = "";
+$json['errorLogMsg'] = "";
 // echo JSON this is used by the app
 echo json_encode($json);
 ?>

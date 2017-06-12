@@ -13,6 +13,8 @@ $passwordhash = $json_decoded->password;
 $firstname = $json_decoded->firstname;
 $lastname = $json_decoded->lastname;
 $email = $json_decoded->emailaddress;
+$json = array();
+
 if (Inputcheck::username($username) && Inputcheck::passwordhash($passwordhash) && Inputcheck::name($firstname) && Inputcheck::name($lastname) && Inputcheck::email($email)) {
     // connect to db
     $mysqli = new mysqli(HOST, USER, PASS, DB);
@@ -42,6 +44,8 @@ if (Inputcheck::username($username) && Inputcheck::passwordhash($passwordhash) &
     $json['message'] = "Input konnte nicht validiert werden.";
     $json['data'] = "";
 }
+$json['errorUserMsg'] = "";
+$json['errorLogMsg'] = "";
 
 // return JSON this is used by the app
 echo json_encode($json);

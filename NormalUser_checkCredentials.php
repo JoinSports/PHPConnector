@@ -5,35 +5,35 @@ require_once 'config/cfg.php';
 include_once 'classes/authuser.class.php';
 include_once 'classes/checkinput.class.php';
 
+// connect to db
+
+
 $json_string = $_POST['json'];
 $json_decoded = json_decode($json_string);
 
 //input params
-$username = $json_decoded->username;
-if (Inputcheck::username($username)) {
-// connect to db
+$authusername = $json_decoded->authusername;
+$authpasswordhash = $json_decoded->authpassword;
+if (Inputcheck::username($authusername) && Inputcheck::passwordhash($authpasswordhash)) {
     $mysqli = new mysqli(HOST, USER, PASS, DB);
     if ($mysqli->connect_errno) {
-        //echo "Failed to connect to MySQL: " . $mysqli->connect_error;
+        echo "Failed to connect to MySQL: " . $mysqli->connect_error;
         $json['status'] = "error";
         $json['message'] = "Fehler 404";
         $json['data'] = "";
     } else {
+        if (AuthUser::authme($authusername, $authpasswordhash)) {
+            // wenn auth true liefert
+            // execute sql query da auth gueltig war
 
-// execute sql query
-    $sql = "SELECT user.firstname,user.lastname,user.email FROM user WHERE user.username='$username';";
-    $result = $mysqli->query($sql);
-    $row = $result->fetch_assoc();
-        // build output dataset.
-        if (!$mysqli->error) {
             $json['status'] = "success";
-            $json['message'] = "Nutzer erfolgreich geeingelesen.";
-            $json['data']['firstname'] = $row['firstname'];
-            $json['data']['lastname'] = $row['lastname'];
-            $json['data']['email'] = $row['email'];
+            $json['message'] = "Erfolgreich angemeldet.";
+            $json['data'] = "";
         } else {
+            // wenn auth false ist
             $json['status'] = "error";
-            $json['message'] = "Der Nutzer konnte nicht gelesen werden.";
+            $json['message'] = "Benutzername oder Password falsch. Bitte erneut versuchen.";
+            $json['data'] = "";
         }
     }
 } else {
@@ -41,8 +41,8 @@ if (Inputcheck::username($username)) {
     $json['message'] = "Input konnte nicht validiert werden.";
     $json['data'] = "";
 }
-
+$json['errorUserMsg'] = "";
+$json['errorLogMsg'] = "";
 // echo JSON this is used by the app
 echo json_encode($json);
-
 ?>
