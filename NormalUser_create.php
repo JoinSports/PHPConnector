@@ -12,7 +12,7 @@ $username = $json_decoded->username;
 $passwordhash = $json_decoded->password;
 $firstname = $json_decoded->firstname;
 $lastname = $json_decoded->lastname;
-$email = $json_decoded->emailaddress;
+$email = $json_decoded->email;
 $json = array();
 
 if (Inputcheck::username($username) && Inputcheck::passwordhash($passwordhash) && Inputcheck::name($firstname) && Inputcheck::name($lastname) && Inputcheck::email($email)) {
@@ -26,7 +26,7 @@ if (Inputcheck::username($username) && Inputcheck::passwordhash($passwordhash) &
     } else {
 
         // execute sql query
-        $sql = "INSERT INTO user VALUES (NULL, '$username', '$passwordhash', '$firstname', '$lastname', '$email');";
+        $sql = "INSERT INTO users VALUES (NULL, '$username', '$passwordhash', '$firstname', '$lastname', '$email');";
         $mysqli->query($sql);
 
         // build output dataset.
