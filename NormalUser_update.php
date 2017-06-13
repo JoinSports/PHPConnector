@@ -15,7 +15,7 @@ $authusername = $json_decoded->authusername;
 $authpasswordhash = $json_decoded->authpassword;
 $firstname = $json_decoded->firstname;
 $lastname = $json_decoded->lastname;
-$email = $json_decoded->emailaddress;
+$email = $json_decoded->email;
 
 $json = array();
 if (Inputcheck::digit($userid) && Inputcheck::username($username) && Inputcheck::passwordhash($passwordhash) && Inputcheck::username($authusername) && Inputcheck::passwordhash($authpasswordhash) && Inputcheck::name($firstname) && Inputcheck::name($lastname) && Inputcheck::email($email)) {
