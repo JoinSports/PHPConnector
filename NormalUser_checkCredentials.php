@@ -13,7 +13,7 @@ $json_decoded = json_decode($json_string);
 
 //input params
 $authusername = $json_decoded->authusername;
-$authpasswordhash = $json_decoded->authpassword;
+$authpasswordhash = $json_decoded->passwordToCheck;
 if (Inputcheck::username($authusername) && Inputcheck::passwordhash($authpasswordhash)) {
     $mysqli = new mysqli(HOST, USER, PASS, DB);
     if ($mysqli->connect_errno) {
