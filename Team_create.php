@@ -13,7 +13,7 @@ $teamleaderid = $json_decoded->teamLeaderId; // int
 $teamname = $json_decoded->teamName;
 
 $json = array();
-if (Inputcheck::digit($userid) && Inputcheck::name($teamname)) {
+if (Inputcheck::digit($teamleaderid) && Inputcheck::name($teamname)) {
 // connect to db
     $mysqli = new mysqli(HOST, USER, PASS, DB);
     if ($mysqli->connect_errno) {
@@ -36,7 +36,7 @@ if (Inputcheck::digit($userid) && Inputcheck::name($teamname)) {
 
             $sql = "INSERT INTO teamuserc VALUES ('$teamid', '$teamleaderid');";
             $mysqli->query($sql);
-            $sql = "INSERT INTO teamleaderc VALUES ('$teamleaderid','$teamid',);";
+            $sql = "INSERT INTO teamleaderc VALUES ('$teamleaderid','$teamid');";
             $mysqli->query($sql);
         } else {
             $json['status'] = "error";
