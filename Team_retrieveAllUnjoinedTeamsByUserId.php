@@ -12,7 +12,7 @@ $json_string = $_POST['json'];
 $json_decoded = json_decode($json_string);
 
 //input params
-$userid = $json_decoded->teamLeaderId;
+$userid = $json_decoded->userId;
 $authusername = $json_decoded->authusername;
 $authpasswordhash = $json_decoded->authpassword;
 
@@ -27,13 +27,13 @@ if (Inputcheck::username($authusername) && Inputcheck::passwordhash($authpasswor
         $json['data'] = "";
     } else {
 
-        $sql = "Select teamid from teamleaderc where teamleaderc.userid='$userid'";
+        $sql = "SELECT id from team,teamuserc where teamuserc.teamid = team.id AND teamuserc.userid !='$userid'";
         $result = $mysqli->query($sql);
 
         $teams_a = array();
         while ($row = mysqli_fetch_assoc($result)) {
             
-            $teams_a[] = $row['teamid'];
+            $teams_a[] = $row['id'];
         }
         
         $json['teamIds'] = $teams_a;

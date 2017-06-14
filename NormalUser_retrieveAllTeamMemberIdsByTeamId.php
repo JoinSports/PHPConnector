@@ -29,7 +29,6 @@ if (Inputcheck::username($authusername) && Inputcheck::passwordhash($authpasswor
 
         $sql = "Select users.userid,username,firstname,lastname,email from users,teamuserc where teamuserc.teamid='$teamid' and teamuserc.userid = users.userid ";
         $result = $mysqli->query($sql);
-        $row = mysqli_fetch_assoc($result);
 
         $users_a = array();
         while ($row = mysqli_fetch_assoc($result)) {
