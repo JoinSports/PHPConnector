@@ -9,9 +9,10 @@ $json_string = $_POST['json'];
 $json_decoded = json_decode($json_string);
 
 //input params
-$username = $json_decoded->username; // string
-$teamname = $json_decoded->teamname;
-if (Inputcheck::username($username) && Inputcheck::name($teamname)) {
+$userid = $json_decoded->userId; // string
+$teamid = $json_decoded->teamId;
+$json = array();
+if (Inputcheck::digit($userid) && Inputcheck::digit($teamid)) {
 // connect to db
     $mysqli = new mysqli(HOST, USER, PASS, DB);
     if ($mysqli->connect_errno) {
@@ -22,15 +23,6 @@ if (Inputcheck::username($username) && Inputcheck::name($teamname)) {
     } else {
 
 // execute sql query
-        $sql = "SELECT users.userid FROM users WHERE users.username='$username';";
-        $result = $mysqli->query($sql);
-        $row = $result->fetch_assoc();
-        $userid = $row['userid'];
-        
-        $sql = "SELECT team.id FROM team WHERE team.teamname='$teamname';";
-        $result = $mysqli->query($sql);
-        $row = $result->fetch_assoc();
-        $teamid = $row['id'];
         
         $sql = "INSERT INTO teamuserc VALUES ('$teamid', '$userid');";
         $mysqli->query($sql);
