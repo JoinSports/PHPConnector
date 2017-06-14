@@ -27,7 +27,7 @@ if (Inputcheck::username($authusername) && Inputcheck::passwordhash($authpasswor
         $json['data'] = "";
     } else {
 
-        $sql = "SELECT id from team,teamuserc where teamuserc.teamid = team.id AND teamuserc.userid !='$userid'";
+        $sql = "SELECT DISTINCT id from team,teamuserc where (id) NOT IN (Select id from team,teamuserc where teamuserc.teamid = team.id AND teamuserc.userid = '$userid')";
         $result = $mysqli->query($sql);
 
         $teams_a = array();
